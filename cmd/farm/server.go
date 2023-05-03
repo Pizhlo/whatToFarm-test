@@ -3,7 +3,7 @@ package farm
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/Pizhlo/whatToFarm-test/internal"
+	"github.com/Pizhlo/whatToFarm-test/server"
 )
 
 // Command to start server 
@@ -13,7 +13,7 @@ var serverCmd = &cobra.Command{
 	Short:   "start the server",
 	Run: func(cmd *cobra.Command, args []string) {
 		port := 3001
-		farm.Server(port)
+		server.Start(port)
 	},
 }
 

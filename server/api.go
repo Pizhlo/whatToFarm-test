@@ -1,7 +1,9 @@
 package server
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 
@@ -10,8 +12,8 @@ import (
 )
 
 const (
-	methodGet  = "GET"
-	methodPost = "POST"
+	MethodGet  = "GET"
+	MethodPost = "POST"
 )
 
 type RatesRequest struct {
@@ -29,7 +31,11 @@ func GetRates(ctx *gin.Context) {
 	parsedString := util.ParseString(req.Pairs)
 	args := util.MakeString(parsedString)
 	url := `https://api.binance.com/api/v3/ticker/price?symbols=%s`
-	body := binance.MakeRequest(methodGet, url, args)
-	resp := util.ParseRequest(body)
+	body := binance.MakeRequest(MethodGet, url, args)
+	resp, err := util.ParseRequest(body)
+	if err != nil {
+		fmt.Printf("could not read response body: %s\n", err)
+		os.Exit(1)
+	}
 	ctx.JSON(http.StatusOK, resp)
 }

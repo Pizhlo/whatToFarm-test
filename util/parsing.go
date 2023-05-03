@@ -1,10 +1,10 @@
 package util
 
 import (
-	"fmt"
+	"encoding/json"
 	"io"
 	"io/ioutil"
-	"os"
+	"net/http"
 	"strings"
 )
 
@@ -36,11 +36,32 @@ func MakeString(s []string) string {
 	return str
 }
 
-func ParseRequest(body io.ReadCloser) string {
+func ParseRequest(body io.ReadCloser) (string, error) {
 	resBody, err := ioutil.ReadAll(body)
 	if err != nil {
-		fmt.Printf("client: could not read response body: %s\n", err)
-		os.Exit(1)
+		return "", err
 	}
-	return string(resBody)
+	return string(resBody), nil
+}
+
+type Rate struct {
+	Symbol string `json:"symbol"`
+	Price  string `json:"price"`
+}
+
+func ParseRate(resp *http.Response) (Rate, error) {
+	var r Rate
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return Rate{}, err
+	}
+
+	//fmt.Println(string(body))
+	//var s string
+	if err := json.Unmarshal(body, &r); err != nil {
+		return Rate{}, err
+	}
+
+	return r, nil
 }

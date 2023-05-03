@@ -8,11 +8,10 @@ import (
 
 // Command to start server 
 var serverCmd = &cobra.Command{
-	Use:     "start server",
+	Use:     "server",
 	Aliases: []string{"server"},
 	Short:   "start the server",
 	Run: func(cmd *cobra.Command, args []string) {
-
 		port := 3001
 		farm.Server(port)
 	},

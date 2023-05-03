@@ -6,6 +6,7 @@ import (
 	"github.com/Pizhlo/whatToFarm-test/pkg/farm"
 )
 
+// Command to start server 
 var serverCmd = &cobra.Command{
 	Use:     "server",
 	Aliases: []string{"server"},

@@ -7,6 +7,7 @@ import (
 	"github.com/Pizhlo/whatToFarm-test/server"
 )
 
+// Server makes a server with routes and specified port
 func Server(port int) {
 	fmt.Println("Launching the server...")
 

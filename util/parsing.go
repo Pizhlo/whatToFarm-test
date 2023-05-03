@@ -2,9 +2,8 @@ package util
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
-	"io/ioutil"
-	"net/http"
 	"strings"
 )
 
@@ -36,31 +35,24 @@ func MakeString(s []string) string {
 	return str
 }
 
-func ParseRequest(body io.ReadCloser) (string, error) {
-	resBody, err := ioutil.ReadAll(body)
-	if err != nil {
-		return "", err
-	}
-	return string(resBody), nil
-}
-
+// Rate saves a response from server
 type Rate struct {
 	Symbol string `json:"symbol"`
 	Price  string `json:"price"`
 }
 
-func ParseRate(resp *http.Response) (Rate, error) {
-	var r Rate
+// ParseRate parses response into Rate structure
+func ParseRate(body io.ReadCloser) ([]Rate, error) {
+	var r []Rate
 
-	body, err := io.ReadAll(resp.Body)
+	res, err := io.ReadAll(body)
 	if err != nil {
-		return Rate{}, err
+		fmt.Println("unable to read: ", err)
+		return []Rate{}, err
 	}
 
-	//fmt.Println(string(body))
-	//var s string
-	if err := json.Unmarshal(body, &r); err != nil {
-		return Rate{}, err
+	if err := json.Unmarshal(res, &r); err != nil {
+		return []Rate{}, err
 	}
 
 	return r, nil

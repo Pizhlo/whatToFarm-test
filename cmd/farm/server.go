@@ -3,7 +3,7 @@ package farm
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/Pizhlo/whatToFarm-test/pkg/farm"
+	"github.com/Pizhlo/whatToFarm-test/internal/farm"
 )
 
 // Command to start server 

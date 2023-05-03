@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
+import "github.com/Pizhlo/whatToFarm-test/cmd/farm"
 
 func main() {
-	fmt.Println("hello world")
+    farm.Execute()
 }

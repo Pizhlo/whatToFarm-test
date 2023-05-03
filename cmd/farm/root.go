@@ -7,6 +7,7 @@ import (
  "github.com/spf13/cobra"
 )
 
+// Main command
 var RootCmd = &cobra.Command{
     Use:  "farm",
     Short: "farm - a simple console application for displaying cryptocurrency exchange rates",

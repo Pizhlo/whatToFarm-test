@@ -30,9 +30,11 @@ func GetRates(ctx *gin.Context) {
 
 	parsedString := util.ParseString(req.Pairs)
 	args := util.MakeString(parsedString)
+
 	url := `https://api.binance.com/api/v3/ticker/price?symbols=%s`
 	body := binance.MakeRequest(MethodGet, url, args)
-	resp, err := util.ParseRequest(body)
+	
+	resp, err := util.ParseRate(body)
 	if err != nil {
 		fmt.Printf("could not read response body: %s\n", err)
 		os.Exit(1)
